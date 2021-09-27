@@ -8,7 +8,7 @@ data.update(xlsx)
 
 
 def create_list_of_names(list_names):
-    # создание списка на выбор 'data_choice'(0 - имена, 1 - специальности, 2 - корп.почта)
+    # создание списка (0 - имена, 1 - специальности, 2 - корп.почта)
     names = {}
     data_clean = []
     names.update(list_names[data_choice[0]])
@@ -28,63 +28,66 @@ def create_list_of_names(list_names):
     data_clean.append(n)
     data_clean.append(sp)
     data_clean.append(e)
-    #print(data_clean)
     return data_clean
 
 
 def surname_str(name_s):
     # создание списка фамилий
-    surname = []
+    g = []
     for u in name_s[0]:
-        surname.append(u)
-    surname = [[item] for item in surname]
-    print(surname)
+        g.append(u)
+    g = [item.split() for item in g]
+    l = len(g)
+    surname = []
+    for n in range(0,l):
+        for i in g[n][:1]:
+            surname.append(i)
     return surname
 
 
 def names_str(name_s):
     # создание списка имен
+    j = []
+    for i in name_s[0]:
+        j.append(i)
+    j = [item.split() for item in j]
+    l = len(j)
     names = []
-    for i in name_s:
-        names.append(i[1:2])
+    for n in range(0,l):
+        for i in j[n][1:2]:
+            names.append(i)
     return names
-
-
-# def corporate_emails(list_names):
-#     # создание списка почты
-#     emails = []
-#     corp_email = []
-#     emails.append(list_names[data_choice[2]])
-#     emails = list(emails)
-#     length = len(emails)
-#     for i in range(length):
-#         corp_email.append(emails[i])
-#     return corp_email
 
 
 def cor_email(corp_email1):
     # создание корп. почты
     emails = []
-    for em in corp_email1:
+    for em in corp_email1[2]:
         emails.append(em)
     return emails
 
-# choice = int(input('Какие данные нужны?(0, 1, 2): '))
-# choice = 2
 
+def spec_number(spec):
+    # создание списка с кодом специальности
+    c = []
+    for u in spec[1]:
+        c.append(u)
+    c = [item.split() for item in c]
+    l = len(c)
+    spec_num = []
+    for n in range(0, l):
+        for i in c[n][:1]:
+            spec_num.append(i)
+    return spec_num
 
+# Создание выборки после парсинга xlsx
 list_of_names = create_list_of_names(xlsx)
-#list_of_corp_email = corporate_emails(xlsx)
-s = surname_str(list_of_names)
-#print(s)
-#print(list_of_names)
-#print(list_of_corp_email)
-
-
 
 # write to Excel
-# df = pd.DataFrame({'Name': names_str(list_of_names),
-#                    'Surname': surname_str(list_of_names),
-#                    'Corp_emails': cor_email(list_of_corp_email)})
-# with pd.ExcelWriter('./test.xlsx') as writer:
-#     df.to_excel(writer, sheet_name="Sheet1")
+df = pd.DataFrame({'Name': names_str(list_of_names),
+                   'Surname': surname_str(list_of_names),
+                   'Specialty number': spec_number(list_of_names),
+                   'Corp_emails': cor_email(list_of_names)})
+with pd.ExcelWriter('./test.xlsx') as writer:
+    df.to_excel(writer, sheet_name="Sheet1")
+print('Done')
