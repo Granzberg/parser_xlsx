@@ -3,8 +3,7 @@ data = {}
 data_choice = ['patronymic', 'spec', 'corp']
 fn = './fuaid.xlsx'
 
-xlsx = pd.read_excel(fn, 0, usecols=data_choice, index_col=None)
-data.update(xlsx)
+
 
 
 def create_list_of_names(list_names):
@@ -80,6 +79,11 @@ def spec_number(spec):
             spec_num.append(i)
     return spec_num
 
+# Чтение исходного файла xlsx
+xlsx = pd.read_excel(fn, 0, usecols=data_choice, index_col=None)
+data.update(xlsx)
+
+
 # Создание выборки после парсинга xlsx
 list_of_names = create_list_of_names(xlsx)
 
@@ -90,4 +94,18 @@ df = pd.DataFrame({'Name': names_str(list_of_names),
                    'Corp_emails': cor_email(list_of_names)})
 with pd.ExcelWriter('./test.xlsx') as writer:
     df.to_excel(writer, sheet_name="Sheet1")
-print('Done')
+print('Create xlsx file ..... Done')
+
+
+csv = pd.DataFrame()
+
+# name,surname,email,22222222,,/,,Active,Never logged in,,,,,,,,,,,,,,,,False,False,,,,0.0GB,0.0GB,Unlimited,True,
+
+# First Name,Last Name,Email Address,Password ,/
+# Password Hash Function [UPLOAD ONLY],Org Unit Path [Required],New Primary Email [UPLOAD ONLY],Status,/
+# Last Sign In ,Recovery Email,Home Secondary Email,Work Secondary Email,/
+# Recovery Phone [MUST BE IN THE E.164 FORMAT],Work Phone,Home Phone,Mobile Phone,Work Address,Home Address,/
+# Employee ID,Employee Type,Employee Title,Manager Email,Department,Cost Center,2sv Enrolled [READ ONLY],/
+# 2sv Enforced [READ ONLY],Building ID,Floor Name,Floor Section,Email Usage [READ ONLY],Drive Usage [READ ONLY],/
+# Total Storage [READ ONLY],Change Password at Next Sign-In,New Status [UPLOAD ONLY]
+
