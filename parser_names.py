@@ -1,27 +1,27 @@
 import requests
-from requests.exceptions import HTTPError
 
-# for url in ['https://api.github.com', 'https://api.github.com/invalid']:
-#     try:
-#         response = requests.get(url)
-#
-#         # если ответ успешен, исключения задействованы не будут
-#         response.raise_for_status()
-#     except HTTPError as http_err:
-#         print(f'HTTP error occurred: {http_err}')  # Python 3.6
-#     except Exception as err:
-#         print(f'Other error occurred: {err}')  # Python 3.6
-#     else:
-#         print('Success!')
+BASE_URL = 'https://dmsu.gov.ua'
 
-# response = requests.get('https://api.github.com/search/repositories',
-#                         params={'q': 'requests+language:python'},
-#                         headers={'Accept': 'application/vnd.github.v3.text-match+json'},)
-#
-# json_response = response.json()
-# repository = json_response['items'][0]
-# print(f'Text matches: {repository["text_matches"]}')  # Python 3.6+
-#
 
-r = requests.post('https://httpbin.org/post', data=[('key', 'value')])
-print(r)
+def getting_translation(translate):
+    headers = {
+        'referer': '{}/services/transliteration.html'.format(BASE_URL)
+    }
+    payload = {
+        #'name': "Введiть iм'я",
+        'surname': 'Введiть прiзвище',
+        'input': translate
+    }
+    r = requests.post(
+        '{}/services/transliteration.html'.format(BASE_URL),
+        data=payload,
+        headers=headers
+    )
+    r.raise_for_status()
+    return r.text
+
+print(getting_translation('Шишов'))
+
+# https://coderoad.ru/48847881/Python-3-%D0%B7%D0%B0%D0%BF%D0%BE%D0%BB%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D1%84%D0%BE%D1%80%D0%BC%D1%8B-%D1%81-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%BE%D0%BC-%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B0-%D0%B2%D0%BE%D0%B7%D0%B2%D1%80%D0%B0%D1%89%D0%B0%D0%B5%D1%82-%D1%82%D1%83-%D0%B6%D0%B5-%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D1%83-HTML
+
+# https://ru.stackoverflow.com/questions/1136050/%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%B0-%D1%81-%D1%81%D0%B0%D0%B9%D1%82%D0%B0-python
