@@ -4,8 +4,6 @@ data_choice = ['patronymic', 'spec', 'corp']
 fn = './fuaid.xlsx'
 
 
-
-
 def create_list_of_names(list_names):
     # создание списка (0 - имена, 1 - специальности, 2 - корп.почта)
     names = {}
