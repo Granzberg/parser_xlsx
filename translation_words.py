@@ -35,15 +35,16 @@ def splitting_word_into_letters(data_clean):
 
 
 def translation_of_word(list_of_words, dictionary):
-    w = 0
     words = []
-    for word in list_of_words[w]:
-        for letter in word:
-            words.append(letter.lower())
+    w = 0
+    list_num = len(list_of_words)
+    for i in range(list_num):
+        for word in list_of_words:
+            for letter in word:
+                words.append(letter.lower())
+
     print(words)
-    for k,v in dictionary.items():
-        n = {k: dictionary[k] for k in dictionary.keys() & set(list_of_words)}
-        print(n)
+
 
 
 
