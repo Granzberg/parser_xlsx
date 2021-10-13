@@ -34,19 +34,20 @@ def splitting_word_into_letters(data_clean):
     return separated_words_into_letters
 
 
-def translation_of_word(list_of_words, dictionary):
-    words = []
-    w = 0
-    list_num = len(list_of_words)
-    for i in range(list_num):
-        for word in list_of_words:
-            for letter in word:
-                words.append(letter.lower())
+def transmutation_of_word(list_of_words, list_letters):
+    translate_words = [[]] * len(list_of_words)
+    n = 0
+    for words_list in list_of_words:
+        k = []
+        for letter in words_list:
 
-    print(words)
+            if letter.lower() in list_letters:
+                words = list_letters[letter.lower()]
+                k.append(words)
 
-
-
+        translate_words[n] = k
+        n += 1
+    return translate_words
 
 
 
@@ -54,4 +55,4 @@ xlsx = pd.read_excel(fn, 0, usecols=words, index_col=None)
 data.update(xlsx)
 
 w = splitting_word_into_letters(create_list_of_word(xlsx))
-translation_of_word(w, letters)
+print(transmutation_of_word(w, letters))
