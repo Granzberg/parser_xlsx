@@ -1,7 +1,9 @@
 import pandas as pd
+
 data = {}
 data_choice = ['patronymic', 'spec', 'corp']
 fn = './fuaid.xlsx'
+print('Create xlsx file .....')
 
 
 def create_list_of_names(list_names):
@@ -30,30 +32,33 @@ def create_list_of_names(list_names):
 
 def surname_str(name_s):
     # создание списка фамилий
-    g = []
-    for u in name_s[0]:
-        g.append(u)
-    g = [item.split() for item in g]
-    l = len(g)
-    surname = []
-    for n in range(0,l):
-        for i in g[n][:1]:
-            surname.append(i)
+    k = 1
+    surname = create_words(name_s, k)
     return surname
 
 
 def names_str(name_s):
     # создание списка имен
+    k = 0
+    names = create_words(name_s, k)
+    return names
+
+
+def create_words(names, k):
     j = []
-    for i in name_s[0]:
+    for i in names[0]:
         j.append(i)
     j = [item.split() for item in j]
     l = len(j)
-    names = []
-    for n in range(0,l):
-        for i in j[n][1:2]:
-            names.append(i)
-    return names
+    names_list = []
+    for n in range(0, l):
+        if k == 1:
+            for i in j[n][1:2]:
+                names_list.append(i)
+        else:
+            for i in j[n][:1]:
+                names_list.append(i)
+    return names_list
 
 
 def cor_email(corp_email1):
@@ -77,26 +82,24 @@ def spec_number(spec):
             spec_num.append(i)
     return spec_num
 
+
 # Чтение исходного файла xlsx
 xlsx = pd.read_excel(fn, 0, usecols=data_choice, index_col=None)
 data.update(xlsx)
-
 
 # Создание выборки после парсинга xlsx
 list_of_names = create_list_of_names(xlsx)
 
 # write to Excel
-print('Create xlsx file .....')
-df = pd.DataFrame({'Name': names_str(list_of_names),
+df1 = pd.DataFrame({'Name': names_str(list_of_names),
                    'Surname': surname_str(list_of_names),
                    'Specialty number': spec_number(list_of_names),
                    'Corp_emails': cor_email(list_of_names)})
-with pd.ExcelWriter('./test.xlsx') as writer:
-    df.to_excel(writer, sheet_name="Sheet1")
-print('Done')
+with pd.ExcelWriter('./translation_names.xlsx') as writer:
+    df1.to_excel(writer, sheet_name="Sheet1")
 
 csv = pd.DataFrame()
-
+print('Done')
 # name,surname,email,22222222,,/,,Active,Never logged in,,,,,,,,,,,,,,,,False,False,,,,0.0GB,0.0GB,Unlimited,True,
 
 # First Name,Last Name,Email Address,Password ,/
@@ -106,4 +109,3 @@ csv = pd.DataFrame()
 # Employee ID,Employee Type,Employee Title,Manager Email,Department,Cost Center,2sv Enrolled [READ ONLY],/
 # 2sv Enforced [READ ONLY],Building ID,Floor Name,Floor Section,Email Usage [READ ONLY],Drive Usage [READ ONLY],/
 # Total Storage [READ ONLY],Change Password at Next Sign-In,New Status [UPLOAD ONLY]
-

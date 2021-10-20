@@ -10,6 +10,7 @@ letters = {'а': 'a', 'б': 'd', 'в': 'v', 'г': 'h', 'ґ': 'g', 'д': 'd', 'е
            '0': 'zgh'}
 
 alternate_letters = {'є': 'ie', 'ї': 'i', 'й': 'i', 'ю': 'iu', 'я': 'ia'}
+print('Create xlsx file .....')
 
 
 def create_list_of_names(list_names):
@@ -110,13 +111,11 @@ n = splitting_word_into_letters(create_list_of_names(xlsx))
 s = splitting_word_into_letters(create_list_of_surname(xlsx))
 
 # write to Excel
-print('Create xlsx file .....')
-df = pd.DataFrame({'Name': transmutation_of_word(n, letters, alternate_letters),
+
+df2 = pd.DataFrame({'Name': transmutation_of_word(n, letters, alternate_letters),
                    'Surname': transmutation_of_word(s, letters, alternate_letters),
                    })
 with pd.ExcelWriter('./translation_names.xlsx') as writer:
-    df.to_excel(writer, sheet_name="Sheet1")
-print('Done')
-
+    df2.to_excel(writer, sheet_name="Sheet2")
 csv = pd.DataFrame()
-
+print('Done')
