@@ -86,14 +86,14 @@ data.update(xlsx)
 list_of_names = create_list_of_names(xlsx)
 
 # write to Excel
+print('Create xlsx file .....')
 df = pd.DataFrame({'Name': names_str(list_of_names),
                    'Surname': surname_str(list_of_names),
                    'Specialty number': spec_number(list_of_names),
                    'Corp_emails': cor_email(list_of_names)})
 with pd.ExcelWriter('./test.xlsx') as writer:
     df.to_excel(writer, sheet_name="Sheet1")
-print('Create xlsx file ..... Done')
-
+print('Done')
 
 csv = pd.DataFrame()
 

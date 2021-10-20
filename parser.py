@@ -53,41 +53,48 @@ def transmutation_of_word(list_of_words, list_letters, second_filter):
     # Перевод слов по таблице перевода
     translate_words = [[]] * len(list_of_words)
     n = 0
-    # Работает не правильно ...
-    # походу требуется разбить на болие мелкие функции и использввать их как методы в нутри этой
+
     for words_list in list_of_words:
-        h = []
-        test = []
+        test = first_filter(words_list, second_filter)
         k = []
-        for w in words_list:
-            if w in second_filter:
-                h = second_filter[w]
-                test.append(h)
+
+        for letter in test:
+            if letter.lower() in list_letters:
+                words = list_letters[letter.lower()]
+                k.append(words)
             else:
-                test.append(w)
-                for letter in test:
-                    if letter.lower() in list_letters:
-                        words = list_letters[letter.lower()]
-                        k.append(words)
+                k.append(letter.lower())
         conk = ''
         for i in k:
             conk += i
         translate_words[n] = [conk.capitalize()]
         n += 1
-    print(translate_words)
-    # return translate_words
+    return translate_words
+
+
+def first_filter(words_list, second_filter):
+    h = []
+    test = []
+    for w in words_list:
+        if w in second_filter:
+            h = second_filter[w]
+            test.append(h)
+        else:
+            test.append(w)
+    return test
 
 
 
 xlsx = pd.read_excel(fn, 0, usecols=words, index_col=None)
 data.update(xlsx)
 
-#rint(xlsx)
-n = splitting_word_into_letters(create_list_of_names(xlsx))
-transmutation_of_word(n, letters, alternate_letters)
-#
-# s = splitting_word_into_letters(create_list_of_surname(xlsx))
-# surname = transmutation_of_word(s, letters, alternate_letters)
 
-# print('*************************************')
-# print(surname)
+n = splitting_word_into_letters(create_list_of_names(xlsx))
+name = transmutation_of_word(n, letters, alternate_letters)
+
+s = splitting_word_into_letters(create_list_of_surname(xlsx))
+surname = transmutation_of_word(s, letters, alternate_letters)
+
+print(name)
+print('*************************************')
+print(surname)
