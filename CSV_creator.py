@@ -1,8 +1,9 @@
 import pandas as pd
 import translation_words as tw
+import create_corporate_email as cce
 
 data = {}
-data_choice = ['patronymic', 'spec', 'corp']
+data_choice = ['patronymic', 'spec']
 fn = './fuaid.xlsx'
 print('Create xlsx file .....')
 
@@ -20,14 +21,9 @@ def create_list_of_names(list_names):
     sp = []
     for item in spec.values():
         sp.append(item)
-    corp = {}
-    corp.update(list_names[data_choice[2]])
-    e = []
-    for item in corp.values():
-        e.append(item)
+
     data_clean.append(n)
     data_clean.append(sp)
-    data_clean.append(e)
     return data_clean
 
 
@@ -65,14 +61,6 @@ def create_words(names, k):
     return names_list
 
 
-def cor_email(corp_email1):
-    # создание корп. почты
-    emails = []
-    for em in corp_email1[2]:
-        emails.append(em)
-    return emails
-
-
 def spec_number(spec):
     # создание списка с кодом специальности
     c = []
@@ -93,23 +81,24 @@ data.update(xlsx)
 
 # Создание выборки после парсинга xlsx
 list_of_names = create_list_of_names(xlsx)
-Name_TW = tw.name_tw
-Surname_TW = tw.surname_tw
+name_TW = tw.name_tw
+surname_TW = tw.surname_tw
+emails = cce.emails_list
 index = []
 for i in range(len(names_str(list_of_names))):
-    index.append(i)
+    index.append(i+1)
 #print(index)
 
 # write to Excel
 df1 = pd.DataFrame({'Name': names_str(list_of_names),
                    'Surname': surname_str(list_of_names),
-                    'Name_TW': Name_TW,
-                    'Surname_TW': Surname_TW,
+                    'Name_TW': name_TW,
+                    'Surname_TW': surname_TW,
                     'Specialty number': spec_number(list_of_names),
-                    'Corp_emails': cor_email(list_of_names)},
+                    'Corp_emails': emails},
                    index=index)
 with pd.ExcelWriter('./translation_names.xlsx') as writer:
-    df1.to_excel(writer, sheet_name="Sheet1", index_label="№", merge_cells=False)
+    df1.to_excel(writer, sheet_name="Sheet1", index_label="№")
 
 csv = pd.DataFrame()
 print('Xlsx file done ...')
