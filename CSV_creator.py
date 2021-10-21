@@ -1,4 +1,5 @@
 import pandas as pd
+import translation_words as tw
 
 data = {}
 data_choice = ['patronymic', 'spec', 'corp']
@@ -31,27 +32,30 @@ def create_list_of_names(list_names):
 
 
 def surname_str(name_s):
-    # создание списка фамилий
+    # возврат списка фамилий
     k = 1
     surname = create_words(name_s, k)
     return surname
 
 
 def names_str(name_s):
-    # создание списка имен
+    # возврат списка имен
     k = 0
     names = create_words(name_s, k)
     return names
 
 
 def create_words(names, k):
+    # создание списка
     j = []
     for i in names[0]:
         j.append(i)
     j = [item.split() for item in j]
     l = len(j)
     names_list = []
+
     for n in range(0, l):
+        # k примает переданое занчение из функции и тем самым происходит раздиление по назначению..
         if k == 1:
             for i in j[n][1:2]:
                 names_list.append(i)
@@ -89,17 +93,26 @@ data.update(xlsx)
 
 # Создание выборки после парсинга xlsx
 list_of_names = create_list_of_names(xlsx)
+Name_TW = tw.name_tw
+Surname_TW = tw.surname_tw
+index = []
+for i in range(len(names_str(list_of_names))):
+    index.append(i)
+#print(index)
 
 # write to Excel
 df1 = pd.DataFrame({'Name': names_str(list_of_names),
                    'Surname': surname_str(list_of_names),
-                   'Specialty number': spec_number(list_of_names),
-                   'Corp_emails': cor_email(list_of_names)})
+                    'Name_TW': Name_TW,
+                    'Surname_TW': Surname_TW,
+                    'Specialty number': spec_number(list_of_names),
+                    'Corp_emails': cor_email(list_of_names)},
+                   index=index)
 with pd.ExcelWriter('./translation_names.xlsx') as writer:
-    df1.to_excel(writer, sheet_name="Sheet1")
+    df1.to_excel(writer, sheet_name="Sheet1", index_label="№", merge_cells=False)
 
 csv = pd.DataFrame()
-print('Done')
+print('Xlsx file done ...')
 # name,surname,email,22222222,,/,,Active,Never logged in,,,,,,,,,,,,,,,,False,False,,,,0.0GB,0.0GB,Unlimited,True,
 
 # First Name,Last Name,Email Address,Password ,/
