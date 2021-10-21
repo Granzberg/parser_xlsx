@@ -19,13 +19,10 @@ def list_of_specialty_numbers(raw_data):
 
 
 def create_emails(surnames, emails):
-    test = {}
-    email = []
-    email.append(emails)
-    email.append(surnames)
-    for i in email:
-        test.update(i)
-    print(test)
+    
+    for i in range(len(surnames)):
+        print(surname[i] + ":" + emails[i])
+    
 
 
 xlsx = pd.read_excel(fn, 0, usecols=words, index_col=None)
