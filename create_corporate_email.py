@@ -22,8 +22,11 @@ def list_of_specialty_numbers(raw_data):
 
 def create_emails(surnames, number):
     emails = []
-    for i in range(len(surnames)):
-        emails.append(surname[i].lower() + "_" + number[i] + '@idguonline.net')
+    for i in range(len(number)):
+        if len(number[i]) < 3:
+            emails.append(surnames[i].lower() + "_0" + number[i] + '@idguonline.net')
+        else:
+            emails.append(surnames[i].lower() + "_" + number[i] + '@idguonline.net')
     return emails
 
 
