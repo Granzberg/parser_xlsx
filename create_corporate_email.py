@@ -33,7 +33,7 @@ def create_emails(surnames, number):
 xlsx = pd.read_excel(fn, 0, usecols=words, index_col=None)
 data.update(xlsx)
 
-print('Creation emails done...')
 surname = list_of_surnames(data)
 numbers = list_of_specialty_numbers(data)
 emails_list = create_emails(surname, numbers)
+print('Creation emails done...')

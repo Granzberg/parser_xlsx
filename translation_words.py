@@ -1,6 +1,6 @@
 import pandas as pd
-
-fn = './test.xlsx'
+import start_creation as start
+fn = './translation_names.xlsx'
 words = ['Name', 'Surname']
 data = {}
 
@@ -113,10 +113,9 @@ s = splitting_word_into_letters(create_list_of_surname(xlsx))
 # write to Excel
 name_tw = transmutation_of_word(n, letters, alternate_letters)
 surname_tw = transmutation_of_word(s, letters, alternate_letters)
-# df2 = pd.DataFrame({'Name': transmutation_of_word(n, letters, alternate_letters),
-#                    'Surname': transmutation_of_word(s, letters, alternate_letters),
-#                    })
-# with pd.ExcelWriter('./translation_names.xlsx') as writer:
-#     df2.to_excel(writer, sheet_name="Sheet2", index_label="№", merge_cells=False)
-# csv = pd.DataFrame()
+df2 = pd.DataFrame({'Name_TW': name_tw,
+                   'Surname_TW': surname_tw})
+with pd.ExcelWriter('./translation_names.xlsx') as writer:
+    df2.to_excel(writer, sheet_name="Sheet1", index_label="№", merge_cells=False)
+csv = pd.DataFrame()
 print('Translation done ...')

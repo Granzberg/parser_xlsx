@@ -1,10 +1,8 @@
 import pandas as pd
-import translation_words as tw
-import create_corporate_email as cce
 
 data = {}
 data_choice = ['patronymic', 'spec']
-fn = './fuaid.xlsx'
+fn = './test.xlsx'
 print('Create xlsx file .....')
 
 
@@ -79,24 +77,16 @@ def spec_number(spec):
 xlsx = pd.read_excel(fn, 0, usecols=data_choice, index_col=None)
 data.update(xlsx)
 
-# Создание выборки после парсинга xlsx
 list_of_names = create_list_of_names(xlsx)
-name_TW = tw.name_tw
-surname_TW = tw.surname_tw
-emails = cce.emails_list
-index = []
-for i in range(len(names_str(list_of_names))):
-    index.append(i+1)
+names_str = names_str(list_of_names)
+surname_str = surname_str(list_of_names)
+spec_number = spec_number(list_of_names)
 
-# write to Excel
-df1 = pd.DataFrame({'Name': names_str(list_of_names),
-                   'Surname': surname_str(list_of_names),
-                    'Name_TW': name_TW,
-                    'Surname_TW': surname_TW,
-                    'Specialty number': spec_number(list_of_names),
-                    'Corp_emails': emails},
-                   index=index)
+df1 = pd.DataFrame({'Name': names_str,
+                    'Surname': surname_str,
+                    'Specialty number': spec_number})
+
 with pd.ExcelWriter('./translation_names.xlsx') as writer:
     df1.to_excel(writer, sheet_name="Sheet1", index_label="№")
-
+# проблема в xlsx файле ... требуеться переделать формирование файла..
 print('Xlsx file done ...')
