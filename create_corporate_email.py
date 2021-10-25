@@ -1,21 +1,20 @@
-import pandas as pd
+import start_creation as start
+import translation_words as tw
 
-fn = './translation_names.xlsx'
-words = ['Surname_TW', 'Specialty number']
 data = {}
 print('Create emails....')
 
 
 def list_of_surnames(raw_data):
     list_surnames = []
-    for surnames in raw_data[words[0]]:
+    for surnames in raw_data:
         list_surnames.append(surnames)
     return list_surnames
 
 
 def list_of_specialty_numbers(raw_data):
     list_specialty_numbers = []
-    for specialty_numbers in raw_data[words[1]]:
+    for specialty_numbers in raw_data:
         list_specialty_numbers.append(str(specialty_numbers))
     return list_specialty_numbers
 
@@ -30,10 +29,7 @@ def create_emails(surnames, number):
     return emails
 
 
-xlsx = pd.read_excel(fn, 0, usecols=words, index_col=None)
-data.update(xlsx)
-
-surname = list_of_surnames(data)
-numbers = list_of_specialty_numbers(data)
+surname = list_of_surnames(tw.surname_tw)
+numbers = list_of_specialty_numbers(start.spec_number)
 emails_list = create_emails(surname, numbers)
 print('Creation emails done...')

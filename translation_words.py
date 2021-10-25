@@ -1,7 +1,6 @@
 import pandas as pd
 import start_creation as start
-fn = './translation_names.xlsx'
-words = ['Name', 'Surname']
+
 data = {}
 
 letters = {'а': 'a', 'б': 'd', 'в': 'v', 'г': 'h', 'ґ': 'g', 'д': 'd', 'е': 'e', 'є': 'ye', 'ж': 'zh', 'з': 'z',
@@ -11,26 +10,6 @@ letters = {'а': 'a', 'б': 'd', 'в': 'v', 'г': 'h', 'ґ': 'g', 'д': 'd', 'е
 
 alternate_letters = {'є': 'ie', 'ї': 'i', 'й': 'i', 'ю': 'iu', 'я': 'ia'}
 print('Translation of words is in progress .....')
-
-
-def create_list_of_names(list_names):
-    # создание списка имен
-    names = {}
-    names.update(list_names[words[1]])
-    n = []
-    for item in names.values():
-        n.append(item)
-    return n
-
-
-def create_list_of_surname(list_names):
-    # создание списка имен
-    names = {}
-    names.update(list_names[words[0]])
-    n = []
-    for item in names.values():
-        n.append(item)
-    return n
 
 
 def splitting_word_into_letters(data_clean):
@@ -103,19 +82,8 @@ def filter_second(words_list):
     return list_after_second_processing
 
 
-xlsx = pd.read_excel(fn, 0, usecols=words, index_col=None)
-data.update(xlsx)
-
-
-n = splitting_word_into_letters(create_list_of_names(xlsx))
-s = splitting_word_into_letters(create_list_of_surname(xlsx))
-
 # write to Excel
-name_tw = transmutation_of_word(n, letters, alternate_letters)
-surname_tw = transmutation_of_word(s, letters, alternate_letters)
-df2 = pd.DataFrame({'Name_TW': name_tw,
-                   'Surname_TW': surname_tw})
-with pd.ExcelWriter('./translation_names.xlsx') as writer:
-    df2.to_excel(writer, sheet_name="Sheet1", index_label="№", merge_cells=False)
-csv = pd.DataFrame()
+name_tw = transmutation_of_word(start.names_str, letters, alternate_letters)
+surname_tw = transmutation_of_word(start.surname_str, letters, alternate_letters)
+
 print('Translation done ...')
