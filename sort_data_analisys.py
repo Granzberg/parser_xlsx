@@ -9,12 +9,13 @@ def sort_data(data_list):
     name = transformation(data_list, 0)
     surname = transformation(data_list, 1)
     email = transformation(data_list, 2)
-
+    list_of_emails = []
     list_of_full_name = []
     for i in range(len(name)):
         list_of_full_name.append(name[i] + ' ' + surname[i])
+        list_of_emails.append(email[i])
 
-    return list_of_full_name
+    return email
 
 
 def comparison(data_list):
@@ -23,6 +24,7 @@ def comparison(data_list):
     for i in set(my_list):
         if my_list.count(i) > 1:
             a_data.append([i, my_list.index(i)])
+    print(my_list)
     return a_data
 
 
@@ -39,6 +41,7 @@ data.update(xlsx)
 sorted_data = comparison(sort_data(data))
 
 df1 = pd.DataFrame(sorted_data)
+#print(comparison(sort_data(data)))
 
 with pd.ExcelWriter('./duplicate_names.xlsx') as writer:
     df1.to_excel(writer, sheet_name="Sheet1")

@@ -12,7 +12,7 @@ def some_data(some_new_data):
     emails = handler_of_data(some_new_data, 1)
     classes_data.append(names)
     classes_data.append(emails)
-    return classes_data
+    return emails
 
 
 def handler_of_data(input_data, number):
@@ -23,14 +23,22 @@ def handler_of_data(input_data, number):
 
 
 def data_comparison(new_list, list_basic_data):
-    data_choice = []
-    for i in range(len(list_basic_data)):
-        for y in set(list_basic_data[i]):
-            if new_list.count(i) == list_basic_data[i]:
-                print(list_basic_data[y])
-
-
-
+    list_2 = {str(new_list)}
+    list_1 = {str(list_basic_data)}
+    # data_choice = set(list_1 | list_2)
+    # table_format = '{:<10} {:<10}'
+    # print(table_format.format('list_1', 'list_2'))
+    # print('-' * 20)
+    # for elem in sorted(data_choice):
+    #     if elem in list_1:
+    #         if elem in list_2:
+    #             print(table_format.format(elem, elem))
+    #
+    #         else:
+    #             print(table_format.format(elem, 'Missing'))
+    #     else:
+    #         print(table_format.format('Missing', elem))
+    print(list_1)
 
 xlsx = pd.read_excel(fn, 0, usecols=data_choice, index_col=None)
 data.update(xlsx)
