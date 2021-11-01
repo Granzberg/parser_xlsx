@@ -29,9 +29,8 @@ def comparison(data_list):
 
 
 def transformation(all_data, number):
-    data_clean = []
-    for i in all_data[data_choice[number]]:
-        data_clean.append(i)
+    data_clean = list(set(all_data) ^ set(number))
+
     return data_clean
 
 
