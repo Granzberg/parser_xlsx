@@ -88,5 +88,5 @@ df1 = pd.DataFrame({'Name': names_str,
 
 with pd.ExcelWriter('..//processed_data/translation_names.xlsx') as writer:
     df1.to_excel(writer, sheet_name="Sheet1", index_label="№")
-# проблема в xlsx файле ... требуеться переделать формирование файла..
+
 print('Xlsx file done ...')
