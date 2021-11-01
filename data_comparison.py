@@ -3,10 +3,11 @@ import sort_data_analisys as da
 
 data = {}
 data_choice = ['names', 'emails']
-fn = './teachers_moodle.xlsx'
+fn = './processed_data/teachers_moodle.xlsx'
 
 
 def some_data(some_new_data):
+    # Извлечение данных(имен и почт) из списка пользователй moodle(сортированый)
     classes_data = []
     names = handler_of_data(some_new_data, 0)
     emails = handler_of_data(some_new_data, 1)
@@ -16,6 +17,7 @@ def some_data(some_new_data):
 
 
 def handler_of_data(input_data, number):
+    # Процесс сортировки данных и формирование его в списки
     some_data = []
     for i in input_data[data_choice[number]]:
         some_data.append(i)
@@ -23,6 +25,7 @@ def handler_of_data(input_data, number):
 
 
 def data_comparison(new_list, list_basic_data):
+    # процесс сравнивания двух списков...
     list_2 = {str(new_list)}
     list_1 = {str(list_basic_data)}
     # data_choice = set(list_1 | list_2)
@@ -39,6 +42,7 @@ def data_comparison(new_list, list_basic_data):
     #     else:
     #         print(table_format.format('Missing', elem))
     print(list_1)
+
 
 xlsx = pd.read_excel(fn, 0, usecols=data_choice, index_col=None)
 data.update(xlsx)
