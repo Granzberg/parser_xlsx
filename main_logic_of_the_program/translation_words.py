@@ -1,11 +1,10 @@
-import pandas as pd
 import start_creation as start
 
 data = {}
 
-letters = {'а': 'a', 'б': 'd', 'в': 'v', 'г': 'h', 'ґ': 'g', 'д': 'd', 'е': 'e', 'є': 'ye', 'ж': 'zh', 'з': 'z',
+letters = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'h', 'ґ': 'g', 'д': 'd', 'е': 'e', 'є': 'ye', 'ж': 'zh', 'з': 'z',
            'и': 'y', 'і': 'i', 'ї': 'yi', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r',
-           'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'kh', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch', 'ю': 'yu', 'я': 'ya',
+           'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'kh','ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch', 'ю': 'yu', 'я': 'ya',
            '0': 'zgh'}
 
 alternate_letters = {'є': 'ie', 'ї': 'i', 'й': 'i', 'ю': 'iu', 'я': 'ia'}
@@ -68,13 +67,13 @@ def first_filter(words_list, second_filter):
 
 def filter_second(words_list):
     # удаление апострофа и мягкого знака
-    second_filter = ["'", 'ь']
+    second_filter = ["’", 'ь']
     list_after_second_processing = []
     for w in words_list:
         if w in second_filter:
             list_after_second_processing.append(w)
-            if w == "'":
-                list_after_second_processing.remove("'")
+            if w == "’":
+                list_after_second_processing.remove("’")
             else:
                 list_after_second_processing.remove('ь')
         else:
