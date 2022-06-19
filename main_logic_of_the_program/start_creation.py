@@ -6,75 +6,70 @@ fn = '..//processed_data/test.xlsx'
 print('Create xlsx file .....')
 
 
-def create_list_of_names(list_names):
-    # создание списка (0 - имена, 1 - специальности, 2 - корп.почта)
+def create_list_of_names(list_names):   # creating a list (0 - names, 1 - specialties, 2 - corporate mail)
     names = {}
     data_clean = []
-    names.update(list_names[data_choice[0]])
-    n = []
+    names.update(list_names[data_choice[0]])    # separates names from the general raw list
+    clean_name = []
     for item in names.values():
-        n.append(item)
+        clean_name.append(item)
     spec = {}
-    spec.update(list_names[data_choice[1]])
-    sp = []
+    spec.update(list_names[data_choice[1]])     # separates specialties from the general raw list
+    clean_specialties = []
     for item in spec.values():
-        sp.append(item)
+        clean_specialties.append(item)
 
-    data_clean.append(n)
-    data_clean.append(sp)
+    data_clean.append(clean_name)
+    data_clean.append(clean_specialties)
     return data_clean
 
 
-def surname_str(name_s):
-    # возврат списка фамилий
-    k = 0
-    surname = create_words(name_s, k)
+def surname_str(name_s):    # return list of last names
+    list_of_last_names = 0
+    surname = create_words(name_s, list_of_last_names)
     return surname
 
 
-def names_str(name_s):
-    # возврат списка имен
-    k = 1
-    names = create_words(name_s, k)
+def names_str(name_s):      # return a list of names
+    list_of_names0 = 1
+    names = create_words(name_s, list_of_names0)
     return names
 
 
-def create_words(names, k):
-    # создание списка
-    j = []
+def create_words(names, k):     # creating a list of words
+    new_list = []
     for i in names[0]:
-        j.append(i)
-    j = [item.split() for item in j]
-    l = len(j)
+        new_list.append(i)
+    divided_by_words = [item.split() for item in new_list]     # separating into list of words from names
+    list_length = len(divided_by_words)  # length of list of separated words
     names_list = []
 
-    for n in range(0, l):
-        # k примает переданое занчение из функции и тем самым происходит раздиление по назначению..
+    for n in range(0, list_length):     # 'k' accepts the passed value from the function
+                                        # and thus separates according to purpose
         if k == 1:
-            for i in j[n][1:2]:
+            for i in divided_by_words[n][1:2]:  # filling list with names
                 names_list.append(i)
         else:
-            for i in j[n][:1]:
+            for i in divided_by_words[n][:1]:   # filling in the list with names
                 names_list.append(i)
     return names_list
 
 
-def spec_number(spec):
-    # создание списка с кодом специальности
-    c = []
-    for u in spec[1]:
-        c.append(u)
-    c = [item.split() for item in c]
-    l = len(c)
+def spec_number(spec):      # creating a list with a specialty code
+    numbers_of_cp = []
+    for u in spec[1]:       # obtaining a specialty number by index
+        numbers_of_cp.append(u)     # adding the received value to the general list
+    numbers_of_cp = [item.split() for item in numbers_of_cp]    # division of the list into specialty
+                                                                # number and specialty name
+    number_of_specialty_numbers = len(numbers_of_cp)
     spec_num = []
-    for n in range(0, l):
-        for i in c[n][:1]:
+    for n in range(0, number_of_specialty_numbers):
+        for i in numbers_of_cp[n][:1]:      # getting a specialty number from the list
             spec_num.append(i)
     return spec_num
 
 
-# Чтение исходного файла xlsx
-xlsx = pd.read_excel(fn, 0, usecols=data_choice, index_col=None)
+xlsx = pd.read_excel(fn, 0, usecols=data_choice, index_col=None)    # Reading xlsx source file
 data.update(xlsx)
 
 list_of_names = create_list_of_names(xlsx)
