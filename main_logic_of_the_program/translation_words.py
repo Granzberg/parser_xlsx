@@ -1,20 +1,19 @@
 import start_creation as start
 
 data = {}
-
+# transliteration from Ukrainian into Latin alphabet
 letters = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'h', 'ґ': 'g', 'д': 'd', 'е': 'e', 'є': 'ye', 'ж': 'zh', 'з': 'z',
            'и': 'y', 'і': 'i', 'ї': 'yi', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r',
            'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'kh','ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch', 'ю': 'yu', 'я': 'ya',
            '0': 'zgh'}
-
+# alternative translation table
 alternate_letters = {'є': 'ie', 'ї': 'i', 'й': 'i', 'ю': 'iu', 'я': 'ia'}
 print('Translation of words is in progress .....')
 
 
-def splitting_word_into_letters(data_clean):
-    # Раздиление слов на буквы
+def splitting_word_into_letters(data_clean):        # Splitting words into letters
     separated_words_into_letters = []
-    # фильтр на комбинацыю символов "зг"
+    # character combination filter "зг"
     k = ''
     for w in data_clean:
         if w.find('зг', 0) == -1:
@@ -28,33 +27,32 @@ def splitting_word_into_letters(data_clean):
     return separated_words_into_letters
 
 
-def transmutation_of_word(list_of_words, list_letters, second_filter):
-    # Перевод слов по основной таблице перевода
-    translate_words = [[]] * len(list_of_words)
+def transmutation_of_word(list_of_words, list_letters, second_filter):      # Translation of words according to the
+                                                                            # main translation table
+    translate_words = [[]] * len(list_of_words)     # creates empty lists by length of list of names
+                                                                            # to replace by list index
     n = 0
-
-    for words_list in list_of_words:
-        test0 = first_filter(words_list, second_filter)
-        test = filter_second(test0)
+    for words_list in list_of_words:        # splits names into letters
+        test0 = alternative_filter(words_list, second_filter)     # checking for letters from an alternative dictionary
+        test = filter_second(test0)         # removing apostrophe and soft sign from list of letters
         k = []
 
-        for letter in test:
-            if letter.lower() in list_letters:
+        for letter in test:         # letter transliteration using basic transliteration
+            if letter.lower() in list_letters:      # Changing letter case to cute
                 words = list_letters[letter.lower()]
                 k.append(words)
             else:
                 k.append(letter.lower())
         conk = ''
         for i in k:
-            conk += i
+            conk += i       # letter-by-letter concatenation with an empty string
         translate_words[n] = conk.capitalize()
         n += 1
     return translate_words
 
 
-def first_filter(words_list, second_filter):
-    # замена букв по альтернативной таблице перевода
-    h = []
+def alternative_filter(words_list, second_filter):          # replacement of letters according to the
+                                                            # alternative translation table
     list_after_processing = []
     for w in words_list:
         if w in second_filter:
@@ -66,7 +64,7 @@ def first_filter(words_list, second_filter):
 
 
 def filter_second(words_list):
-    # удаление апострофа и мягкого знака
+    # remove apostrophe and soft sign
     second_filter = ["’", 'ь']
     list_after_second_processing = []
     for w in words_list:
@@ -81,7 +79,7 @@ def filter_second(words_list):
     return list_after_second_processing
 
 
-# write to Excel
+# variable for transferring processed information to another file
 name_tw = transmutation_of_word(start.names_str, letters, alternate_letters)
 surname_tw = transmutation_of_word(start.surname_str, letters, alternate_letters)
 

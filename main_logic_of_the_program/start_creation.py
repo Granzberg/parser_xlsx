@@ -73,6 +73,7 @@ xlsx = pd.read_excel(fn, 0, usecols=data_choice, index_col=None)    # Reading xl
 data.update(xlsx)
 
 list_of_names = create_list_of_names(xlsx)
+# variable for transferring processed information to another file
 names_str = names_str(list_of_names)
 surname_str = surname_str(list_of_names)
 spec_number = spec_number(list_of_names)
