@@ -6,13 +6,13 @@ fn = '..//processed_data/translation_names.xlsx'
 print('Start csv creation....')
 
 
-def creator_lists(name_data, choice):
-    names = {}
-    names.update(name_data[data_choice[choice]])
-    n = []
-    for item in names.values():
-        n.append(item)
-    return n
+def creator_lists(name_data, choice):   # function unpacks data from Pandas into a list
+    names0 = {}
+    names0.update(name_data[data_choice[choice]])
+    new_cl = []
+    for item in names0.values():
+        new_cl.append(item)
+    return new_cl
 
 
 def names(list_of_names):
@@ -39,12 +39,14 @@ def emails(list_of_names):
 xlsx = pd.read_excel(fn, 0, usecols=data_choice, index_col=None)
 data.update(xlsx)
 
+# data to write to CSV file
 n = names(data)
 s = surnames(data)
 e = emails(data)
 password = ['22222222'] * len(n)
 orgUnitPath = ['/'] * len(n)
 plug = [''] * len(n)
+# the minimum required information to create corporate mail in Google Workspace
 a = {'First Name': n, 'Last Name': s, 'Email Address': e, 'Password': password, 'Password Hash Function': plug,
      'Org Unit Path': orgUnitPath, 'New Primary Email [UPLOAD ONLY]': plug, 'Recovery Email': plug,
      'Home Secondary Email': plug, 'Work Secondary Email': plug,

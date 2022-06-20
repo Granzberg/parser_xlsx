@@ -63,8 +63,7 @@ def alternative_filter(words_list, second_filter):          # replacement of let
     return list_after_processing
 
 
-def filter_second(words_list):
-    # remove apostrophe and soft sign
+def filter_second(words_list):  # remove apostrophe and soft sign
     second_filter = ["’", 'ь']
     list_after_second_processing = []
     for w in words_list:

@@ -3,7 +3,7 @@ import translation_words as tw
 import create_corporate_email as cce
 import start_creation as start
 
-# Создание выборки после парсинга xlsx
+# transferring data from other program files
 names_str = start.names_str
 surname_str = start.surname_str
 name_TW = tw.name_tw

@@ -2,34 +2,24 @@ import start_creation as start
 import translation_words as tw
 
 data = {}
+domain = '@your.domain'
 print('Create emails....')
 
 
-def list_of_surnames(raw_data):
-    list_surnames = []
-    for surnames in raw_data:
-        list_surnames.append(surnames)
-    return list_surnames
-
-
-def list_of_specialty_numbers(raw_data):
-    list_specialty_numbers = []
-    for specialty_numbers in raw_data:
-        list_specialty_numbers.append(str(specialty_numbers))
-    return list_specialty_numbers
-
-
-def create_emails(surnames, number):
+def create_emails(surnames, number, your_domain):   # creation of an email based on the received names and
+                                                    # numbers of specialists from other files
     emails = []
     for i in range(len(number)):
-        if len(number[i]) < 3:
-            emails.append(surnames[i].lower() + "_0" + number[i] + '@idguonline.net')
+        if len(number[i]) < 3:      # if the specialty number is shorter than 3 characters,
+                                    # then a 0 character is added before it
+            emails.append(surnames[i].lower() + "_0" + str(number[i]) + your_domain)
         else:
-            emails.append(surnames[i].lower() + "_" + number[i] + '@idguonline.net')
+            emails.append(surnames[i].lower() + "_" + str(number[i]) + your_domain)
     return emails
 
 
-surname = list_of_surnames(tw.surname_tw)
-numbers = list_of_specialty_numbers(start.spec_number)
-emails_list = create_emails(surname, numbers)
+surname = tw.surname_tw
+numbers = start.spec_number
+# variable for transferring processed information to another file
+emails_list = create_emails(surname, numbers, domain)
 print('Creation emails done...')
