@@ -44,8 +44,7 @@ def create_words(names, k):     # creating a list of words
     list_length = len(divided_by_words)  # length of list of separated words
     names_list = []
 
-    for n in range(0, list_length):     # 'k' accepts the passed value from the function
-                                        # and thus separates according to purpose
+    for n in range(0, list_length):     # 'k' accepts the passed value from the function and thus separates according to purpose
         if k == 1:
             for i in divided_by_words[n][1:2]:  # filling list with names
                 names_list.append(i)
@@ -59,8 +58,7 @@ def spec_number(spec):      # creating a list with a specialty code
     numbers_of_cp = []
     for u in spec[1]:       # obtaining a specialty number by index
         numbers_of_cp.append(u)     # adding the received value to the general list
-    numbers_of_cp = [item.split() for item in numbers_of_cp]    # division of the list into specialty
-                                                                # number and specialty name
+    numbers_of_cp = [item.split() for item in numbers_of_cp]    # division of the list into specialty number and specialty name
     number_of_specialty_numbers = len(numbers_of_cp)
     spec_num = []
     for n in range(0, number_of_specialty_numbers):
