@@ -1,51 +1,18 @@
 import pandas as pd
+import translation_words as tw
+import create_corporate_email as cce
 
-data = {}
-data_choice = ['Name_TW', 'Surname_TW', 'Corp_emails']
-fn = '..//processed_data/translation_names.xlsx'
-print('Start csv creation....')
-
-
-def creator_lists(name_data, choice):   # function unpacks data from Pandas into a list
-    names0 = {}
-    names0.update(name_data[data_choice[choice]])
-    new_cl = []
-    for item in names0.values():
-        new_cl.append(item)
-    return new_cl
-
-
-def names(list_of_names):
-    choice = 0
-    data_list = creator_lists(list_of_names, choice)
-
-    return data_list
-
-
-def surnames(list_of_names):
-    choice = 1
-    data_list = creator_lists(list_of_names, choice)
-
-    return data_list
-
-
-def emails(list_of_names):
-    choice = 2
-    data_list = creator_lists(list_of_names, choice)
-
-    return data_list
-
-
-xlsx = pd.read_excel(fn, 0, usecols=data_choice, index_col=None)
-data.update(xlsx)
 
 # data to write to CSV file
-n = names(data)
-s = surnames(data)
-e = emails(data)
-password = ['22222222'] * len(n)
-orgUnitPath = ['/'] * len(n)
-plug = [''] * len(n)
+n = tw.name_tw
+s = tw.surname_tw
+e = cce.emails_list
+
+password = ['22222222'] * len(n)        # creates a list of identical passwords equal
+                                        # to the length of the resulting list of names'n'
+orgUnitPath = ['/'] * len(n)            # creates a list equal to the length of the resulting list of names
+plug = [''] * len(n)                    # creates a list of empty strings equal to the length
+                                        # of the resulting list of names
 # the minimum required information to create corporate mail in Google Workspace
 a = {'First Name': n, 'Last Name': s, 'Email Address': e, 'Password': password, 'Password Hash Function': plug,
      'Org Unit Path': orgUnitPath, 'New Primary Email [UPLOAD ONLY]': plug, 'Recovery Email': plug,
