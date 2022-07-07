@@ -2,14 +2,16 @@ import pandas as pd
 import translation_words as tw
 import create_corporate_email as cce
 
+pas = '22222222'         # here you can enter the initial password (you need eight characters)
+unitPath = '/'           # here you can bind mail to a group after '/'
 
 # data to write to CSV file
 name = tw.name_tw
 surname = tw.surname_tw
 emails = cce.emails_list
 
-password = ['22222222'] * len(name)        # here you can enter the initial password (you need eight characters)
-orgUnitPath = ['/'] * len(name)            # here you can bind mail to a group after '/'
+password = [pas] * len(name)
+orgUnitPath = [unitPath] * len(name)
 plug = [''] * len(name)                    # the necessary stub for creating mail (do not change in any way)
 # the minimum required information to create corporate mail in Google Workspace
 a = {'First Name': name, 'Last Name': surname, 'Email Address': emails, 'Password': password, 'Password Hash Function': plug,
