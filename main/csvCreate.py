@@ -2,14 +2,14 @@ import pandas as pd
 import translation_words as tw
 import create_corporate_email as cce
 
-pas = '22222222'         # here you can enter the initial password (you need eight characters)
+pas = 'yourPass'         # here you can enter the initial password (you need eight characters)
 unitPath = '/'           # here you can bind mail to a group after '/'
 
 # data to write to CSV file
 name = tw.name_tw
 surname = tw.surname_tw
 emails = cce.emails_list
-
+print('csv create ....')
 password = [pas] * len(name)
 orgUnitPath = [unitPath] * len(name)
 plug = [''] * len(name)                    # the necessary stub for creating mail (do not change in any way)
@@ -27,4 +27,4 @@ index = len(name)
 df = pd.DataFrame.from_dict(a)
 
 df.to_csv(path_or_buf='../test/data.csv', sep=',', index=False, mode='wb')
-print('csv create done....')
+print('csv done....')
