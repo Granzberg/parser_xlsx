@@ -2,7 +2,7 @@ import pandas as pd
 
 data = {}
 data_choice = ['patronymic', 'spec']
-fn = '..//processed_data/test.xlsx'
+fn = '..//test/test.xlsx'
 print('Create xlsx file .....')
 
 
@@ -80,7 +80,7 @@ df1 = pd.DataFrame({'Name': names_str,
                     'Surname': surname_str,
                     'Specialty number': spec_number})
 
-with pd.ExcelWriter('..//processed_data/translation_names.xlsx') as writer:
+with pd.ExcelWriter('../test/translation_names.xlsx') as writer:
     df1.to_excel(writer, sheet_name="Sheet1", index_label="№")
 
 print('Xlsx file done ...')

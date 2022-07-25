@@ -26,5 +26,5 @@ a = {'First Name': name, 'Last Name': surname, 'Email Address': emails, 'Passwor
 index = len(name)
 df = pd.DataFrame.from_dict(a)
 
-df.to_csv(path_or_buf='..//processed_data/data.csv', sep=',', index=False, mode='wb')
+df.to_csv(path_or_buf='../test/data.csv', sep=',', index=False, mode='wb')
 print('csv create done....')
