@@ -1,5 +1,5 @@
-import start_creation as start
-import translation_words as tw
+import secondStep as start
+import translation as tw
 
 data = {}
 domain = '@your.domain'

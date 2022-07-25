@@ -1,4 +1,4 @@
-import start_creation as start
+import secondStep as start
 
 data = {}
 # transliteration from Ukrainian into Latin alphabet

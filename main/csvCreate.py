@@ -1,6 +1,6 @@
 import pandas as pd
-import translation_words as tw
-import create_corporate_email as cce
+import translation as tw
+import ccEmail as cce
 
 pas = 'yourPass'         # here you can enter the initial password (you need eight characters)
 unitPath = '/'           # here you can bind mail to a group after '/'
