@@ -5,8 +5,8 @@ import csvCreate as csv
 
 # transferring data from other program files
 if __name__ == '__main__':
-    names_str = start.names_str
-    surname_str = start.surname_str
+    names_str = start.names
+    surname_str = start.surname
     name_TW = tw.name_tw
     surname_TW = tw.surname_tw
     spec_number = start.spec_number

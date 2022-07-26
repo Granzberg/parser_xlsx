@@ -1,7 +1,7 @@
 # xlsx file handler
 This program transliterates the Ukrainian alphabet into Latin to create corporate emails. The work of this program is provided only on the territory of Ukraine. The area of application of this program is only Google Workspace.
 The program takes an Excel file with the names of students (schoolchildren), names and numbers of specialties (students) as an input, and gives a csv file as an output.
-The program can also be used at school.
+The program can also be used at school(in developing).
 ### In these files program parameters are changed:
 * csv_creator.py
 * creator_corporate_email.py

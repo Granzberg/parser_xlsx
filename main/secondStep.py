@@ -1,20 +1,17 @@
 import pandas as pd
 
-data = {}
-data_choice = ['patronymic', 'spec']
-fn = '..//test/test.xlsx'
 print('Create xlsx file .....')
 
 
 def create_list_of_names(list_names):   # creating a list (0 - names, 1 - specialties, 2 - corporate mail)
-    names = {}
+    themnames = {}
     data_clean = []
-    names.update(list_names[data_choice[0]])    # separates names from the general raw list
+    themnames.update(list_names['patronymic'])    # separates names from the general raw list
     clean_name = []
-    for item in names.values():
+    for item in themnames.values():
         clean_name.append(item)
     spec = {}
-    spec.update(list_names[data_choice[1]])     # separates specialties from the general raw list
+    spec.update(list_names['spec'])     # separates specialties from the general raw list
     clean_specialties = []
     for item in spec.values():
         clean_specialties.append(item)
@@ -24,21 +21,9 @@ def create_list_of_names(list_names):   # creating a list (0 - names, 1 - specia
     return data_clean
 
 
-def surname_str(name_s):    # return list of last names
-    list_of_last_names = 0
-    surname = create_words(name_s, list_of_last_names)
-    return surname
-
-
-def names_str(name_s):      # return a list of names
-    list_of_names0 = 1
-    names = create_words(name_s, list_of_names0)
-    return names
-
-
-def create_words(names, k):     # creating a list of words
+def create_words(name, k):     # creating a list of words
     new_list = []
-    for i in names[0]:
+    for i in name[0]:
         new_list.append(i)
     divided_by_words = [item.split() for item in new_list]     # separating into list of words from names
     list_length = len(divided_by_words)  # length of list of separated words
@@ -67,17 +52,21 @@ def spec_number(spec):      # creating a list with a specialty code
     return spec_num
 
 
+data = {}
+data_choice = ['patronymic', 'spec']
+fn = '..//test/test.xlsx'
+
 xlsx = pd.read_excel(fn, 0, usecols=data_choice, index_col=None)    # Reading xlsx source file
 data.update(xlsx)
 
 list_of_names = create_list_of_names(xlsx)
 # variable for transferring processed information to another file
-names_str = names_str(list_of_names)
-surname_str = surname_str(list_of_names)
+names = create_words(list_of_names, k=0)
+surname = create_words(list_of_names, k=1)
 spec_number = spec_number(list_of_names)
 
-df1 = pd.DataFrame({'Name': names_str,
-                    'Surname': surname_str,
+df1 = pd.DataFrame({'Name': names,
+                    'Surname': surname,
                     'Specialty number': spec_number})
 
 with pd.ExcelWriter('../test/translation_names.xlsx') as writer:

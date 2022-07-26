@@ -1,6 +1,5 @@
 import secondStep as start
 
-data = {}
 # transliteration from Ukrainian into Latin alphabet
 letters = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'h', 'ґ': 'g', 'д': 'd', 'е': 'e', 'є': 'ye', 'ж': 'zh', 'з': 'z',
            'и': 'y', 'і': 'i', 'ї': 'yi', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r',
@@ -79,7 +78,7 @@ def filter_second(words_list):  # remove apostrophe and soft sign
 
 
 # variable for transferring processed information to another file
-name_tw = transmutation_of_word(start.names_str, letters, alternate_letters)
-surname_tw = transmutation_of_word(start.surname_str, letters, alternate_letters)
+name_tw = transmutation_of_word(start.names, letters, alternate_letters)
+surname_tw = transmutation_of_word(start.surname, letters, alternate_letters)
 
 print('Translation done ...')
